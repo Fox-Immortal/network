@@ -1,6 +1,5 @@
 #include <iostream>
 #include <queue>
-#include <cmath>
 #include <iomanip>
 
 using namespace std;
@@ -14,7 +13,7 @@ void leaky(int ticks,int  max_arrival_rate,int  max_packet_size,int  max_queue_s
         int dropped = 0;
         int arrival = (rand() % max_arrival_rate);
         if(packets.size() + arrival > max_queue_size)
-            dropped = abs((int)packets.size() + arrival);
+            dropped = max_queue_size - (int)packets.size() + arrival;
         for(int i = 0; i < arrival && packets.size() < max_queue_size; i++) {
             int packet = (rand() % max_packet_size) + 1;
             packets.push(packet);
@@ -49,7 +48,7 @@ void token(int ticks,int  max_arrival_rate,int  max_packet_size,int  max_queue_s
         int arrival = (rand() % max_arrival_rate);
         bucket += token_rate;
         if(packets.size() + arrival > max_queue_size)
-            dropped = abs((int)packets.size() + arrival);
+            dropped = max_queue_size - (int)packets.size() + arrival;
         for(int i = 0; i < arrival && packets.size() < max_queue_size; i++) {
             int packet = (rand() % max_packet_size) + 1;
             packets.push(packet);
